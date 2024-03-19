@@ -141,9 +141,9 @@ export default {
           );
           this.loader = false;
           this.success = data.data.success;
-          console.log(this.success);
-          console.log(data.status);
-          console.log(data);
+          setTimeout(() => {
+            this.$router.replace("/");
+          }, 2000);
           // SE AVVIENE UN ORDINE D'ASPORTO
         } else {
           const data = await axios.post(state.baseUrl + "api/orders", _order);
@@ -221,7 +221,7 @@ export default {
           this.success = false;
           return;
         }
-        if (!data.data.success) {
+        if (!data.success) {
           this.loader = false;
           this.success = false;
         }
@@ -465,7 +465,7 @@ export default {
           </div>
         </template>
       </div>
-      <div v-if="!loaderSeat">
+      <!-- <div v-if="!loaderSeat">
         {{ seats[0] }}
         <span v-if="formValues.orario">
           {{
@@ -478,7 +478,7 @@ export default {
         <span v-if="formValues.orario"> pizze al piatto disponibili </span>
       </div>
 
-      <app-loader v-else :show="loaderSeat" />
+      <app-loader v-else :show="loaderSeat" /> -->
     </section>
 
     <form class="dati-cliente">
@@ -784,7 +784,7 @@ h1 {
 .calendar-leave-from {
   opacity: 0;
 }
-
+.delivery,
 .privacy{
 display: flex;
 align-content: center;

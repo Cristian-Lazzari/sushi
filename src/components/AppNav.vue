@@ -31,7 +31,9 @@ export default {
           <router-link :to="{ name: 'home' }" :class="state.actvPage == 1 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(1)" >home</router-link>
           <router-link :to="{ name: 'menu' }" :class="state.actvPage == 2 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(2)" >menu</router-link>
           <router-link :to="{ name: 'prenota' }" :class="state.actvPage == 5 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(5)" >Ordina d'Asporto</router-link>
-          <router-link :to="{ name: 'prenotaServizio' }" :class="state.actvPage == 6 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(6)" >Prenota tavolo</router-link>
+          <a href="tel:+393271622244
+          " class="nav-link"  >Prenota tavolo</a>
+          <!-- <router-link :to="{ name: 'prenotaServizio' }" :class="state.actvPage == 6 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(6)" >Prenota tavolo</router-link> -->
         </div>
 
       </div>
@@ -75,7 +77,8 @@ export default {
       <router-link :to="{ name: 'chi-siamo' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(3)" >chi siamo?</router-link>
       <router-link :to="{ name: 'contatti' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(4)" >contatti</router-link>
       <router-link :to="{ name: 'prenota' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(5)" >Ordina d'Asporto</router-link>
-      <router-link :to="{ name: 'prenotaServizio' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(6)" >Prenota tavolo</router-link>
+      <a href="tel:+393271622244
+          " :class="state.infomenu ? 'menu-off': '' " class="nav-link"  >Prenota tavolo</a>
       <div class="nav-link info"  :class="state.infomenu ? 'info-on' : 'info-off'">
         <div :class="state.infomenu ? 'top-info-on' : 'top-info-off'" >
           <h4 @click="state.infoside">info</h4>

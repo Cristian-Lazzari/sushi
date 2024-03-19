@@ -4,14 +4,13 @@ import axios from "axios";
 
 export default {
   components: {  },
-
   data() {
     return {
       state,
       arrProduct: [],
       arrCategory: [],
       categoryId: 0,
-      categoryinput: 1,
+      categoryinput : 1,
       cartinput: 0,
       name: "",
       phone: "",
@@ -30,38 +29,15 @@ export default {
         counter: 1,
         expanded: 0,
         opened: false,
-        category_slot : "",
+        category_slot: '',
+        category_type: '',
       },
       arrCorrectIngredient: [],
     };
   },
   methods: {
-    cartopen(){
-        if (this.cartinput){
-          this.cartinput = 0
-        }else{
-          this.cartinput = 1
-        }
-        console.log(this.cartinput)
-      },
-    namecategory(n,i){
-        if(this.categoryId==0 && i==0){
-          return'categorie'
-        }
-        i++
-        if(this.categoryId==i && i!==0){
-          return n
-        }
-      },
-    catopen(){
-        if (this.categoryinput){
-          this.categoryinput = 0
-        }else{
-          this.categoryinput = 1
-        }
-        console.log(this.categoryinput)
-      },
     getProduct(cat) {
+      this.arrProduct = [];
       (this.categoryId = cat),
         axios
           .get(this.state.baseUrl + "api/projects", {
@@ -73,6 +49,13 @@ export default {
             this.arrProduct = response.data.results.data;
             this.arrProduct.forEach((element) => {
               element.deselected = [];
+              this.arrCategory.forEach(e => {
+                if(element.category_id == e.id){
+                  element.category_slot = e.slot; 
+                  element.category_type = e.type; 
+                }
+                
+              });
               element.tags.forEach((element) => {
                 element.deselected = 0;
               });
@@ -81,8 +64,14 @@ export default {
     },
 
     getIngredients() {
+      this.arrIngredient = [];
       axios.get(state.baseUrl + "api/tag", {}).then((response) => {
-        this.arrIngredient = response.data.results;
+        let firstarrIngredient = response.data.results;
+        firstarrIngredient.forEach(element => {
+          if(element.price !== 0){
+            this.arrIngredient.push(element) 
+          }
+        });
         this.arrIngredient.forEach((element) => {
           element.active = false;
         });
@@ -108,7 +97,7 @@ export default {
         return elemento !== stringaDaEliminare;
       });
     },
-    openShow(name, id, tags, price, image, cat) {
+    openShow(name, id, tags, price, image, cat, type) {
       this.selectedItem.name = name;
       this.selectedItem.id = id;
       this.selectedItem.tags = tags;
@@ -116,26 +105,27 @@ export default {
       this.selectedItem.price = price;
       this.selectedItem.opened = true;
       this.arrCorrectIngredient = [];
-      this.openIng();
-      this.arrCategory.forEach(element => {
-        if(element.id == cat){
-          this.selectedItem.category_slot = element.slot;
+      this.cartinput = 0;
+      this.state.sideCartValue = 0;
+      this.selectedItem.category_slot = cat;
+      this.selectedItem.category_type = type;
 
-        } 
-      });
+ 
+      this.openIng();
     },
     closeShow() {
       this.selectedItem.name = "";
       this.selectedItem.id = "";
       this.selectedItem.tags = [];
       this.selectedItem.deselected = [];
-      this.selectedItem.category_slot = "";
       this.selectedItem.addicted = [];
       this.selectedItem.image = "";
       this.selectedItem.price = 0;
+      this.selectedItem.counter = 1;
       this.selectedItem.expanded = 0;
       this.selectedItem.price_variation = 0;
       this.selectedItem.opened = false;
+      this.selectedItem.category_slot = '';
       this.arrCorrectIngredient = [];
       this.arrProduct.forEach((element) => {
         element.tags.forEach((element) => {
@@ -202,7 +192,7 @@ export default {
       });
     },
 
-    newItem(p_id, title, counter, totprice, addicted, deselected, slot) {
+    newItem(p_id, title, counter, totprice, addicted, deselected, slot, type) {
       let newitem = {
         p_id,
         title,
@@ -210,7 +200,8 @@ export default {
         totprice,
         deselected,
         addicted,
-        slot
+        slot,
+        type,
       };
       return newitem;
     },
@@ -224,10 +215,7 @@ export default {
       let double_check = false;
       let r_id = "";
 
-      if (
-        this.selectedItem.deselected.length == 0 &&
-        this.selectedItem.addicted.length == 0
-      ) {
+      if (this.selectedItem.deselected.length == 0 && this.selectedItem.addicted.length == 0) {
         this.state.arrCart.forEach((element, i) => {
           if (
             element.p_id == this.selectedItem.id &&
@@ -278,24 +266,23 @@ export default {
 
       //se l'item non era gia presente lo aggiungo ora per la prima volta a tutti gli array
       if (!check) {
-        let newitem = this.newItem(
-          this.selectedItem.id,
-          this.selectedItem.name,
-          this.selectedItem.counter,
-          (parseInt(this.selectedItem.price) +
-            this.selectedItem.price_variation) *
-            this.selectedItem.counter,
-          this.selectedItem.addicted,
-          this.selectedItem.deselected,
+        let newitem = this.newItem( 
+          this.selectedItem.id, 
+          this.selectedItem.name, 
+          this.selectedItem.counter, 
+          (parseInt(this.selectedItem.price) + this.selectedItem.price_variation) * this.selectedItem.counter, 
+          this.selectedItem.addicted, 
+          this.selectedItem.deselected, 
           this.selectedItem.category_slot,
+          this.selectedItem.category_type
         );
 
         this.state.arrCart.push(newitem);
       }
-      //reimposto il counter a 1
-      this.selectedItem.counter = 1;
       //ricalcolo il totale
       this.getTot();
+      //reimposto il counter a 1
+      this.selectedItem.counter = 1;
       //riporto gli ingredienti deselezionati alla stato di default
       this.arrProduct.forEach((element) => {
         element.deselected = [];
@@ -351,13 +338,6 @@ export default {
         return num;
       }
     },
-    opencart() {
-      if (state.sideCartValue) {
-        state.sideCartValue = 0;
-      } else {
-        state.sideCartValue = 1;
-      }
-    },
     modCounter(ud) {
       if (ud == "up") {
         this.selectedItem.counter++;
@@ -369,10 +349,17 @@ export default {
     },
     getTot() {
       this.state.totCart = 0;
-      this.state.nPezzi = 0;
+      this.state.nPezzi[0] = 0;
+      this.state.nPezzi[1] = 0;
       this.state.arrCart.forEach((element) => {
         this.state.totCart = this.state.totCart + element.totprice;
-        this.state.nPezzi += parseInt(element.slot) * element.counter
+        if(element.type == 'q'){
+          this.state.nPezzi[0] +=( parseInt(element.slot) * element.counter);
+        }else if(element.type == 't'){
+          console.log(this.state.nPezzi)
+          this.state.nPezzi[1] += (parseInt(element.slot) * element.counter)
+        }
+
       }); 
     },
     openIng() {
@@ -393,17 +380,421 @@ export default {
         element.active = false;
       });
     },
+    catopen(){
+      if (this.categoryinput){
+        this.categoryinput = 0
+      }else{
+        this.categoryinput = 1
+      }
+      console.log(this.categoryinput)
+    },
+    cartopen(){
+      if (this.cartinput){
+        this.cartinput = 0
+      }else{
+        this.cartinput = 1
+      }
+      console.log(this.cartinput)
+    }
+    
+   
   },
   created() {
     localStorage.getItem("cart") &&
-      (this.state.arrCart = JSON.parse(localStorage.getItem("cart")));
+    (this.state.arrCart = JSON.parse(localStorage.getItem("cart")));
     this.getTot();
+
     this.getProduct(0);
     this.getCategory();
     this.getIngredients();
 
-    this.state.actvPage = 5;
   },
+  // data() {
+  //   return {
+  //     state,
+  //     arrProduct: [],
+  //     arrCategory: [],
+  //     categoryId: 0,
+  //     categoryinput: 1,
+  //     
+  //     name: "",
+  //     phone: "",
+  //     time: "",
+  //     actvcat: 1,
+  //     arrIngredient: [],
+  //     selectedItem: {
+  //       name: "",
+  //       id: "",
+  //       image: "",
+  //       tags: [],
+  //       deselected: [],
+  //       addicted: [],
+  //       price_variation: 0,
+  //       price: 0,
+  //       counter: 1,
+  //       expanded: 0,
+  //       opened: false,
+  //       category_slot : "",
+  //     },
+  //     arrCorrectIngredient: [],
+  //   };
+  // },
+  // methods: {
+  //   
+  //   namecategory(n,i){
+  //       if(this.categoryId==0 && i==0){
+  //         return'categorie'
+  //       }
+  //       i++
+  //       if(this.categoryId==i && i!==0){
+  //         return n
+  //       }
+  //     },
+  //   catopen(){
+  //       if (this.categoryinput){
+  //         this.categoryinput = 0
+  //       }else{
+  //         this.categoryinput = 1
+  //       }
+  //       console.log(this.categoryinput)
+  //     },
+  //   getProduct(cat) {
+  //     (this.categoryId = cat),
+  //       axios
+  //         .get(this.state.baseUrl + "api/projects", {
+  //           params: {
+  //             category: this.categoryId,
+  //           },
+  //         })
+  //         .then((response) => {
+  //           this.arrProduct = response.data.results.data;
+  //           this.arrProduct.forEach((element) => {
+  //             element.deselected = [];
+  //             element.tags.forEach((element) => {
+  //               element.deselected = 0;
+  //             });
+  //           });
+  //         });
+  //   },
+
+  //   getIngredients() {
+  //     axios.get(state.baseUrl + "api/tag", {}).then((response) => {
+  //       this.arrIngredient = response.data.results;
+  //       this.arrIngredient.forEach((element) => {
+  //         element.active = false;
+  //       });
+  //     });
+  //   },
+  //   getCategory() {
+  //     axios.get(state.baseUrl + "api/categories", {}).then((response) => {
+  //       this.arrCategory = response.data.results;
+  //     });
+  //   },
+  //   changeCategory(value) {
+  //     if (value == 1) {
+  //       this.getProduct(0);
+  //       this.actvcat = value;
+  //     } else {
+  //       this.getProduct(value);
+  //       this.actvcat = value;
+  //     }
+  //   },
+
+  //   esp(array, stringaDaEliminare) {
+  //     return array.filter(function (elemento) {
+  //       return elemento !== stringaDaEliminare;
+  //     });
+  //   },
+  //   openShow(name, id, tags, price, image, cat) {
+  //     this.selectedItem.name = name;
+  //     this.selectedItem.id = id;
+  //     this.selectedItem.tags = tags;
+  //     this.selectedItem.image = image;
+  //     this.selectedItem.price = price;
+  //     this.selectedItem.opened = true;
+  //     this.arrCorrectIngredient = [];
+  //     this.openIng();
+  //     this.arrCategory.forEach(element => {
+  //       if(element.id == cat){
+  //         this.selectedItem.category_slot = element.slot;
+
+  //       } 
+  //     });
+  //   },
+  //   closeShow() {
+  //     this.selectedItem.name = "";
+  //     this.selectedItem.id = "";
+  //     this.selectedItem.tags = [];
+  //     this.selectedItem.deselected = [];
+  //     this.selectedItem.category_slot = "";
+  //     this.selectedItem.addicted = [];
+  //     this.selectedItem.image = "";
+  //     this.selectedItem.price = 0;
+  //     this.selectedItem.expanded = 0;
+  //     this.selectedItem.price_variation = 0;
+  //     this.selectedItem.opened = false;
+  //     this.arrCorrectIngredient = [];
+  //     this.arrProduct.forEach((element) => {
+  //       element.tags.forEach((element) => {
+  //         element.deselected = 0;
+  //       });
+  //     });
+  //     this.arrCorrectIngredient.forEach((element) => {
+  //       element.active = false;
+  //     });
+  //   },
+
+  //   addremoveTagDefault(nametag, ar) {
+  //     if (ar == "remove") {
+  //       this.selectedItem.deselected.push(nametag);
+  //       this.selectedItem.tags.forEach((element) => {
+  //         if (element.name == nametag) {
+  //           element.deselected = 1;
+  //         }
+  //       });
+  //     } else {
+  //       this.selectedItem.deselected = this.esp(
+  //         this.selectedItem.deselected,
+  //         nametag
+  //       );
+  //       this.selectedItem.tags.forEach((element) => {
+  //         if (element.name == nametag) {
+  //           element.deselected = 0;
+  //         }
+  //       });
+  //     }
+  //   },
+  //   addRemoveExtraTag(nametag, price, ar) {
+  //     if (ar == "remove") {
+  //       this.selectedItem.addicted.push(nametag);
+  //       this.selectedItem.price_variation =
+  //         this.selectedItem.price_variation + price;
+  //       this.arrCorrectIngredient.forEach((element) => {
+  //         if (element.name == nametag) {
+  //           element.active = true;
+  //         }
+  //       });
+  //     } else {
+  //       this.selectedItem.addicted = this.esp(
+  //         this.selectedItem.addicted,
+  //         nametag
+  //       );
+  //       this.selectedItem.price_variation =
+  //         this.selectedItem.price_variation - price;
+  //       this.arrCorrectIngredient.forEach((element) => {
+  //         if (element.name == nametag) {
+  //           element.active = false;
+  //         }
+  //       });
+  //     }
+  //   },
+  //   removeExtraTagShow(nome) {
+  //     this.selectedItem.addicted = this.esp(this.selectedItem.addicted, nome);
+  //     this.arrCorrectIngredient.forEach((element) => {
+  //       if (element.name == nome) {
+  //         this.selectedItem.price_variation =
+  //           this.selectedItem.price_variation - element.price;
+  //         element.active = false;
+  //       }
+  //     });
+  //   },
+
+  //   newItem(p_id, title, counter, totprice, addicted, deselected, slot) {
+  //     let newitem = {
+  //       p_id,
+  //       title,
+  //       counter,
+  //       totprice,
+  //       deselected,
+  //       addicted,
+  //       slot
+  //     };
+  //     return newitem;
+  //   },
+
+  //   addItem() {
+  //     if (this.selectedItem.counter <= 0) {
+  //       return console.log("ci hai provato amico!");
+  //     }
+  //     let check = false;
+  //     let second_check = false;
+  //     let double_check = false;
+  //     let r_id = "";
+
+  //     if (
+  //       this.selectedItem.deselected.length == 0 &&
+  //       this.selectedItem.addicted.length == 0
+  //     ) {
+  //       this.state.arrCart.forEach((element, i) => {
+  //         if (
+  //           element.p_id == this.selectedItem.id &&
+  //           element.deselected.length == 0 &&
+  //           element.addicted.length == 0
+  //         ) {
+  //           element.totprice =
+  //             (element.counter + this.selectedItem.counter) *
+  //             (element.totprice / element.counter);
+  //           element.counter += this.selectedItem.counter;
+  //           check = true;
+  //         }
+  //       });
+  //     } else {
+  //       this.state.arrCart.forEach((element, i) => {
+  //         if (element.p_id == this.selectedItem.id) {
+  //           if (
+  //             this.selectedItem.addicted.length == element.addicted.length &&
+  //             this.selectedItem.deselected.length == element.deselected.length
+  //           ) {
+  //             element.deselected.forEach((e) => {
+  //               if (!this.selectedItem.deselected.includes(e)) {
+  //                 second_check = true;
+  //               }
+  //             });
+  //             element.addicted.forEach((e) => {
+  //               if (!this.selectedItem.addicted.includes(e)) {
+  //                 second_check = true;
+  //               }
+  //             });
+  //             if (!second_check) {
+  //               r_id = i;
+  //               double_check = true;
+  //             }
+  //           }
+  //         }
+  //       });
+  //       this.state.arrCart.forEach((element, i) => {
+  //         if (double_check && i == r_id) {
+  //           element.totprice =
+  //             (element.counter + this.selectedItem.counter) *
+  //             (element.totprice / element.counter);
+  //           element.counter += this.selectedItem.counter;
+  //           check = true;
+  //         }
+  //       });
+  //     }
+
+  //     //se l'item non era gia presente lo aggiungo ora per la prima volta a tutti gli array
+  //     if (!check) {
+  //       let newitem = this.newItem(
+  //         this.selectedItem.id,
+  //         this.selectedItem.name,
+  //         this.selectedItem.counter,
+  //         (parseInt(this.selectedItem.price) +
+  //           this.selectedItem.price_variation) *
+  //           this.selectedItem.counter,
+  //         this.selectedItem.addicted,
+  //         this.selectedItem.deselected,
+  //         this.selectedItem.category_slot,
+  //       );
+
+  //       this.state.arrCart.push(newitem);
+  //     }
+  //     //reimposto il counter a 1
+  //     this.selectedItem.counter = 1;
+  //     //ricalcolo il totale
+  //     this.getTot();
+  //     //riporto gli ingredienti deselezionati alla stato di default
+  //     this.arrProduct.forEach((element) => {
+  //       element.deselected = [];
+  //       element.tags.forEach((element) => {
+  //         element.deselected = 0;
+  //       });
+  //     });
+  //     this.closeShow();
+
+  //     const jsonCart = JSON.stringify(this.state.arrCart);
+  //     localStorage.setItem("cart", jsonCart);
+  //   },
+  //   removeItem(i) {
+  //     if (this.state.arrCart[i].counter >= 0) {
+  //       this.state.arrCart[i].counter--;
+  //       this.state.arrCart[i].totprice =
+  //         (this.state.arrCart[i].totprice /
+  //           (this.state.arrCart[i].counter + 1)) *
+  //         this.state.arrCart[i].counter;
+
+  //       if (this.state.arrCart[i].counter == 0) {
+  //         this.state.arrCart.splice(i, 1);
+  //       }
+  //     }
+  //     this.getTot();
+
+  //     const jsonCart = JSON.stringify(this.state.arrCart);
+  //     localStorage.setItem("cart", jsonCart);
+  //   },
+
+  //   fixtag(arr) {
+  //     let arrtag = "";
+  //     arr.forEach((element, i) => {
+  //       if (i + 1 == arr.length) {
+  //         arrtag = arrtag + element.name + ".";
+  //       } else {
+  //         arrtag = arrtag + element.name + ", ";
+  //       }
+  //     });
+  //     return arrtag;
+  //   },
+  //   getPrice(cent, sum) {
+  //     if (sum) {
+  //       let num1 = parseFloat(cent);
+
+  //       let num = (num1 + sum) / 100;
+  //       num = "€" + num;
+  //       return num;
+  //     } else {
+  //       let num = parseFloat(cent);
+  //       num = num / 100;
+  //       num = "€" + num;
+  //       return num;
+  //     }
+  //   },
+
+  //   modCounter(ud) {
+  //     if (ud == "up") {
+  //       this.selectedItem.counter++;
+  //     } else if (ud == "down") {
+  //       if (this.selectedItem.counter > 1) {
+  //         this.selectedItem.counter--;
+  //       }
+  //     }
+  //   },
+  //   getTot() {
+  //     this.state.totCart = 0;
+  //     this.state.nPezzi = 0;
+  //     this.state.arrCart.forEach((element) => {
+  //       this.state.totCart = this.state.totCart + element.totprice;
+  //       this.state.nPezzi += parseInt(element.slot) * element.counter
+  //     }); 
+  //   },
+  //   openIng() {
+  //     let obs = false;
+  //     this.arrIngredient.forEach((element) => {
+  //       this.selectedItem.tags.forEach((e) => {
+  //         if (element.name == e.name) {
+  //           obs = true;
+  //         }
+  //       });
+  //       if (obs) {
+  //         obs = false;
+  //       } else {
+  //         this.arrCorrectIngredient.push(element);
+  //       }
+  //     });
+  //     this.arrCorrectIngredient.forEach((element) => {
+  //       element.active = false;
+  //     });
+  //   },
+  // },
+  // created() {
+  //   localStorage.getItem("cart") &&
+  //     (this.state.arrCart = JSON.parse(localStorage.getItem("cart")));
+  //   this.getTot();
+  //   this.getProduct(0);
+  //   this.getCategory();
+  //   this.getIngredients();
+
+  //   this.state.actvPage = 5;
+  // },
 };
 </script>
 <!-- :class="state.sideCartValue ?  'sub-item-off' : 'sub-item-on tag'" -->
@@ -433,7 +824,7 @@ export default {
         
         
         <div :class="state.sideCartValue ? 'content-cart' : 'ccoff'">
-          <span @click="cartopen(cartinput)" class="close-cart">chiudi</span>
+          <span @click="cartopen" class="close-cart">chiudi</span>
           <div class="" v-if="!state.arrCart.length && !state.sideCartValue">
             Il carrello è vuoto
           </div>
@@ -549,25 +940,6 @@ export default {
           </div>
 
           <div class="content">
-            <div class="tags" v-if="!selectedItem.expanded && selectedItem.category_slot > 0">
-              <h3>Modifica ingredienti:</h3>
-              <div v-for="tag in selectedItem.tags" :key="tag.name">
-                <span
-                  class="tag-pills"
-                  :class="tag.deselected ? 'tag-off' : ''"
-                  @click="addremoveTagDefault(tag.name, 'remove')"
-                  v-if="!tag.deselected"
-                  >- {{ tag.name }}</span
-                >
-                <span
-                  class="tag-pills"
-                  :class="tag.deselected ? 'tag-off' : ''"
-                  @click="addremoveTagDefault(tag.name)"
-                  v-if="tag.deselected"
-                  >+ {{ tag.name }}</span
-                >
-              </div>
-            </div>
             <div class="description" v-if="selectedItem.category_slot == 0">
               <h3>Descrizione:</h3>
               <div class="desc">
@@ -575,20 +947,31 @@ export default {
                 <!-- <span v-for="tag in selectedItem.tags" :key="tag.name" > {{ tag.name }}</span> -->
               </div>
             </div>
-            <div
-              class="extra-tags"
-              v-if="!selectedItem.expanded && selectedItem.addicted.length && selectedItem.category_slot > 0"
-            >
-              <h3>Ingredienti extra:</h3>
+            <div class="extra-tags" v-if="!selectedItem.expanded && selectedItem.category_slot > 0">
               <div class="et-c">
+                <h3>Modifica Ingredienti:</h3>
+                <div v-for="tag in selectedItem.tags" :key="tag.name">
+                  <span
+                    class="tag-pills"
+                    :class="tag.deselected ? 'tag-off' : ''"
+                    @click="addremoveTagDefault(tag.name, 'remove')"
+                    v-if="!tag.deselected"
+                    >- {{ tag.name }}</span
+                  >
+                  <span
+                    class="tag-pills"
+                    :class="tag.deselected ? 'tag-off' : ''"
+                    @click="addremoveTagDefault(tag.name)"
+                    v-if="tag.deselected"
+                    >+ {{ tag.name }}</span
+                  >
+                </div>
+              
 
-                <span
-                  class="tag-pills"
-                  v-for="i in selectedItem.addicted"
-                  :key="i"
-                  @click="removeExtraTagShow(i)"
-                  >- {{ i }}</span
-                >
+                <div v-for="i in selectedItem.addicted" :key="i" @click="removeExtraTagShow(i)">
+                  <span class="tag-pills spec" >- {{ i }}
+                  </span >
+                </div>
               </div>
             </div>
             <div
@@ -933,29 +1316,7 @@ export default {
             margin: 2rem;
           }
 
-          .tags {
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.191);
-            padding: 1rem;
-            max-height: 25vh;
-            
-            display: flex;
-            //flex-direction: column;
-            align-items: center;
-            gap: 13px;
-            column-gap: 5px;
-            h3{
 
-              margin-right: 20px ;
-            }
-            .tag-pills {
-              white-space: nowrap;
-              display: block;
-              width: 100% !important;
-              background-color: $c-panna;
-              color: $c-nav !important;
-            }
-          }
           .extra-tags {
             background-color: rgba(0, 0, 0, 0.191);
             padding:1rem;
@@ -972,11 +1333,18 @@ export default {
               color: white  !important;
               margin-bottom: 15px;
             }
-            
-            .tag-pills {
-              background-color: #EBD59B;
-              color: #523333 !important;
-              
+            div{
+              .tag-pills {
+                background-color: #EBD59B;
+                color: #523333 !important;
+                width: auto;
+                
+              }
+              .spec{
+                background-color: #dc9140;
+
+              }
+
             }
           }
           .add-ingredient {
@@ -1176,7 +1544,7 @@ export default {
   }
   .badge{
     color: white;
-    background-color:#dbc69e;
+    background-color:$c-header;
     width: 25px;
     height: 25px;
     border-radius: 100%;

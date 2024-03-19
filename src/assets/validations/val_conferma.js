@@ -1,4 +1,4 @@
-export function order_validations(resValues, maxPezzi, nPezzi) {
+export function order_validations(resValues) {
   let errValid = [];
 
   // Giorno e ora
@@ -47,10 +47,10 @@ export function order_validations(resValues, maxPezzi, nPezzi) {
     errValid.push("Accetta i termini della privacy");
   }
 
-  // N pezzi
-  if (nPezzi > maxPezzi) {
-    errValid.push("Numero di pezzi non disponibile per la fascia oraria selezionata, controllare disponibilità sotto scelta fascia oraria");
-  }
+  // // N pezzi
+  // if (nPezzi > maxPezzi) {
+  //   errValid.push("Numero di pezzi non disponibile per la fascia oraria selezionata, controllare disponibilità sotto scelta fascia oraria");
+  // }
 
   return errValid;
 }

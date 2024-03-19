@@ -122,6 +122,121 @@ export default {
     const settings = await axios.get(state.baseUrl + "api/setting", {});
     this.settings = settings.data.results;
   },
+
+  // data() {
+  //   return {
+  //     state,
+  //     orderValues: {
+  //       anno: "",
+  //       mese: "",
+  //       giorno: "",
+  //       orario: "",
+  //       nome: "",
+  //       email: "",
+  //       telefono: null,
+  //       messaggio: "",
+  //       privacy: false,
+  //       delivery: false,
+  //       comune: "",
+  //       civico: "",
+  //       indirizzo: "",
+  //     },
+  //     inputs: [
+  //       {
+  //         name: "nome",
+  //         label: "Nome *",
+  //         type: "text",
+  //       },
+  //       {
+  //         name: "email",
+  //         label: "Email *",
+  //         type: "email",
+  //       },
+  //       {
+  //         name: "telefono",
+  //         label: "Telefono *",
+  //         type: "text",
+  //       },
+  //       {
+  //         name: "comune",
+  //         label: "Città ",
+  //         type: "select",
+  //       },
+  //       {
+  //         name: "indirizzo",
+  //         label: "Indirizzo",
+  //         type: "text",
+  //       },
+  //       {
+  //         name: "civico",
+  //         label: "N° civico *",
+  //         type: "text",
+  //       },
+  //       {
+  //         name: "messaggio",
+  //         label: "Messaggio",
+  //         type: "text",
+  //       },
+  //     ],
+  //     settings: [],
+  //     cartError: "",
+  //     loading: false,
+  //   };
+  // },
+  // methods: {
+  //   removeItem(i) {
+  //     if (this.state.arrCart[i].counter >= 0) {
+  //       this.state.arrCart[i].counter--;
+  //       this.state.arrCart[i].totprice =
+  //         (this.state.arrCart[i].totprice /
+  //           (this.state.arrCart[i].counter + 1)) *
+  //         this.state.arrCart[i].counter;
+
+  //       if (this.state.arrCart[i].counter == 0) {
+  //         this.state.arrCart.splice(i, 1);
+  //       }
+  //     }
+  //     this.getTot();
+
+  //     const jsonCart = JSON.stringify(this.state.arrCart);
+  //     localStorage.setItem("cart", jsonCart);
+  //   },
+  //   getTot() {
+  //     this.state.totCart = 0;
+  //     this.state.nPezzi[0] = 0;
+  //     this.state.nPezzi[1] = 0;
+  //     this.state.arrCart.forEach((element) => {
+  //       this.state.totCart = this.state.totCart + element.totprice;
+  //       if(element.type == 'q'){
+  //         this.state.nPezzi[0] +=( parseInt(element.slot) * element.counter);
+  //       }else if(element.type == 't'){
+  //         console.log(this.state.nPezzi)
+  //         this.state.nPezzi[1] += (parseInt(element.slot) * element.counter)
+  //       }
+
+  //     }); 
+  //   },
+  //   getPrice(cent, sum) {
+  //     if (sum) {
+  //       let num1 = parseFloat(cent);
+  //       let num = (num1 + sum) / 100;
+  //       num = "€" + num;
+  //       return num;
+  //     } else {
+  //       let num = parseFloat(cent);
+  //       num = num / 100;
+  //       num = "€" + num;
+  //       return num;
+  //     }
+  //   },
+  // },
+  // async created() {
+  //   localStorage.getItem("cart") &&
+  //     (this.state.arrCart = JSON.parse(localStorage.getItem("cart")));
+  //   this.getTot();
+  //   const settings = await axios.get(state.baseUrl + "api/setting", {});
+  //   this.settings = settings.data.results;
+  // },
 };
 </script>
 
