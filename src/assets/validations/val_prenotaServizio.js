@@ -4,7 +4,8 @@ export function validateReservation(resValues) {
   if (!resValues.giorno || !resValues.orario) {
     errValid.push("Scegli un giorno e un orario");
   }
-
+ 
+  
   // Nome
   if (!resValues.nome) {
     errValid.push("Il campo 'nome' è richiesto!");
