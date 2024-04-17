@@ -118,7 +118,7 @@
               <span >CATEGORIE</span>
             </div>
             <div class="categorie"   :class="catinput ? 'cat-on': 'cat-off'">
-              <div v-for="(cat, i) in arrCategory" class="category" :class="categoryId == cat.id ? 'category-on' : '', i == 0 ? 'category0' : '',i == 1 ? 'category1' : '', i == 2 ? 'category2' : '',i == 3 ? 'category3' : '',i == 4 ? 'category4' : '',i == 5 ? 'category5' : '',i == 6 ? 'category6' : '',i == 7 ? 'category7' : '' " @click="changeCategory(cat.id, cat.name)" :key="i"> 
+              <div v-for="(cat, i) in arrCategory" class="category" :class="categoryId == cat.id ? 'category-on' : '', i == 0 ? 'category0' : '',i == 1 ? 'category1' : '', i == 2 ? 'category2' : '',i == 3 ? 'category3' : '',i == 4 ? 'category4' : '',i == 5 ? 'category5' : '',i == 6 ? 'category6' : '',i == 7 ? 'category7' : '',i == 8 ? 'category8' : '' ,i == 9 ? 'category9' : '',i == 10 ? 'category10' : '',i == 11 ? 'category11' : '',i == 12 ? 'category12' : '',i == 13 ? 'category13' : '',i == 14 ? 'category14' : '',i == 15 ? 'category15' : '',i == 16 ? 'category16' : '',i == 17 ? 'category17' : '',i == 18 ? 'category18' : '',i == 19 ? 'category19' : '',i == 20 ? 'category20' : '',i == 21 ? 'category21' : '',i == 22 ? 'category22' : '',i == 23 ? 'category23' : '',i == 24 ? 'category24' : '',i == 25 ? 'category25' : '',i == 26 ? 'category26' : '',i == 27 ? 'category27' : '',i == 28 ? 'category28' : '',i == 29 ? 'category29' : ''" @click="changeCategory(cat.id, cat.name)" :key="i"> 
                 <span @click="catopen(catinput)" :class="categoryId == cat.id ? 'span-on' : '' ">{{ cat.name }}</span> 
               </div>
             </div>
@@ -418,30 +418,92 @@
    }
   }
 
-  .category0{
-  background-color:rgba(213, 60, 60, 0.46);
-
+.category0{
+  background-color:rgba(213, 60, 60, 0.64);
 }
 .category1{
-  background-color:rgba(213, 60, 60, 0.40);
+  background-color:rgba(213, 60, 60, 0.62);
 }
 .category2{
-  background-color:rgba(213, 60, 60, 0.34);
+  background-color:rgba(213, 60, 60, 0.60);
 }
 .category3{
-  background-color:rgba(213, 60, 60, 0.28);
+  background-color:rgba(213, 60, 60, 0.58);
 }
 .category4{
-  background-color:rgba(213, 60, 60, 0.22);
+  background-color:rgba(213, 60, 60, 0.56);
 }
 .category5{
-  background-color:rgba(213, 60, 60, 0.16);
+  background-color:rgba(213, 60, 60, 0.54);
 }
 .category6{
-  background-color:rgba(213, 60, 60, 0.10);
+  background-color:rgba(213, 60, 60, 0.52);
 }
 .category7{
-  background-color:rgba(213, 60, 60, 0.07);
+  background-color:rgba(213, 60, 60, 0.50);
+}
+.category8{
+  background-color:rgba(213, 60, 60, 0.48);
+}
+.category9{
+  background-color:rgba(213, 60, 60, 0.46);
+}
+.category10{
+  background-color:rgba(213, 60, 60, 0.44);
+}
+.category11{
+  background-color:rgba(213, 60, 60, 0.42);
+}
+.category12{
+  background-color:rgba(213, 60, 60, 0.40);
+}
+.category13{
+  background-color:rgba(213, 60, 60, 0.38);
+}
+.category14{
+  background-color:rgba(213, 60, 60, 0.36);
+}
+.category15{
+  background-color:rgba(213, 60, 60, 0.34);
+}
+.category16{
+  background-color:rgba(213, 60, 60, 0.32);
+}
+.category17{
+  background-color:rgba(213, 60, 60, 0.30);
+}
+.category18{
+  background-color:rgba(213, 60, 60, 0.28);
+}
+.category19{
+  background-color:rgba(213, 60, 60, 0.26);
+}
+.category20{
+  background-color:rgba(213, 60, 60, 0.24);
+}
+.category21{
+  background-color:rgba(213, 60, 60, 0.22);
+}
+.category22{
+  background-color:rgba(213, 60, 60, 0.20);
+}
+.category23{
+  background-color:rgba(213, 60, 60, 0.18);
+}
+.category24{
+  background-color:rgba(213, 60, 60, 0.16);
+}
+.category25{
+  background-color:rgba(213, 60, 60, 0.16);
+}
+.category26{
+  background-color:rgba(213, 60, 60, 0.14);
+}
+.category27{
+  background-color:rgba(213, 60, 60, 0.12);
+}
+.category28{
+  background-color:rgba(213, 60, 60, 0.10);
 }
 .category-on {
   
