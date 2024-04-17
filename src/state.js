@@ -9,11 +9,11 @@ export const state = reactive({
   maxPezzi: 0,
   nPezzi: 0,
   totCart: 0,
-  setting:[],
+  setting: [],
   nPezzi: [0, 0],
   actvPage: 1,
-  //baseUrl: 'https://db.dashboardristorante.it/',
-  baseUrl: "http://127.0.0.1:8000/",
+  baseUrl: 'https://db.dashboardristorante.it/',
+  //baseUrl: "http://127.0.0.1:8000/",
   getImageUrl(image) {
     return this.baseUrl + "public/storage/" + image;
   },

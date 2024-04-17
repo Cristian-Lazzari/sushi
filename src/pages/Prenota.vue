@@ -915,6 +915,12 @@ export default {
               <span>{{ fixtag(item.tags) }}</span>
             </div>
             <div class="price">{{ getPrice(item.price) }}</div>
+            <div class="allerg">
+                <div class="allergs"></div>
+                <div class="allergs"></div>
+                <div class="allergs"></div>
+                <div class="allergs"></div>
+              </div>
           </div>
         </div>
         <div v-if="selectedItem.opened" class="overlay"></div>
@@ -1051,6 +1057,24 @@ export default {
 <style scoped lang="scss">
 @use "../assets/styles/general.scss" as *;
 
+.categorie::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.categorie::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: $c-header;
+}
+.categorie::-webkit-scrollbar-track {
+  border-radius: 20px;
+  background: rgba(52, 4, 7, 0.786);
+}
+.categorie::-webkit-scrollbar-thumb:hover {
+  border-radius: 20px;
+  background-color: $c-nav-link;
+  border: 2px solid $c-header;
+}
 .prenota-cont::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -1249,6 +1273,19 @@ export default {
             //border-radius: 10px ;
             text-align: right;
             padding-top: 0.5rem;
+          }
+          .allerg{
+            position: absolute;
+            bottom: -15px;
+            width: 50%;
+            display: flex;
+            gap: 1rem;
+            .allergs{
+              width: 30px;
+              aspect-ratio: 1;
+              background-color: white;
+              border-radius: 50%;
+            }
           }
         }
       }
@@ -1493,10 +1530,11 @@ export default {
   position: relative;
   border: 5px solid white;
   border-radius: 20px;
+  overflow: hidden;
+  overflow-y: auto;
   .category {
    height: 100%;
    flex: 1;
-   overflow: hidden;
    cursor:grab;
    border-radius: 2px;
    transition: all .5s;
