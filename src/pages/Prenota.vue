@@ -915,13 +915,7 @@ export default {
               <span>{{ fixtag(item.tags) }}</span>
             </div>
             <div class="price">{{ getPrice(item.price) }}</div>
-            <div class="allerg">
-                <div class="allergs"></div>
-                <div class="allergs"></div>
-                <div class="allergs"></div>
-                <div class="allergs"></div>
-              </div>
-          </div>
+            
         </div>
         <div v-if="selectedItem.opened" class="overlay"></div>
         <div class="card-show" v-if="selectedItem.opened">

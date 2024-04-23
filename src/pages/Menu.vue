@@ -134,13 +134,13 @@
               <div class="title">{{ item.name }}</div>
               <div class="tags"> <span>{{fixtag(item.tags) }}</span></div>
               <div class="price">{{ getPrice(item.price) }}</div>
-              <div class="allerg">
+             <!-- <div class="allerg">
                 <div class="allergs"></div>
                 <div class="allergs"></div>
                 <div class="allergs"></div>
                 <div class="allergs"></div>
               </div>
-            </div>
+            </div>-->
           </div>
           
         </div>
