@@ -139,8 +139,8 @@
                 <div class="allergs"></div>
                 <div class="allergs"></div>
                 <div class="allergs"></div>
-              </div>
-            </div>-->
+              </div>-->
+            </div>
           </div>
           
         </div>
