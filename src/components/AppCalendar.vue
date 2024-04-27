@@ -146,6 +146,7 @@ export default {
           }, 2000);
           // SE AVVIENE UN ORDINE D'ASPORTO
         } else {
+          this.success = true;
           const data = await axios.post(state.baseUrl + "api/orders", _order);
           this.success = data.data.success;
           this.loader = false;
