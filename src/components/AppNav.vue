@@ -17,6 +17,7 @@ export default {
 <template>
   
   <div class="nav">
+    
     <div class="left-nav">
       <img src="../assets/img/logo_kojo.jpg" alt="">
     </div>
@@ -65,7 +66,6 @@ export default {
       </div>
     </div>
   </div>
-
   <div :class="state.sideMenuValue ? 'nav-mb-on' : 'nav-mb-off'">
     <div :class="state.sideMenuValue ? 'burger-close-on' : 'burger-close-off'" @click="state.openside">
       <div class="line"  :class="state.infomenu ?   'menu-off': 'active-link' "></div>
@@ -122,6 +122,7 @@ export default {
     </div>
 
   </div>
+  
   
 
 </template>
@@ -379,6 +380,7 @@ height: 0%;
   display:none;
 }
 .nav{
+  overflow: hidden;
   background-color: white;
   display: flex;
   width: 100%;
@@ -521,6 +523,7 @@ height: 0%;
   }
 
   .nav-mb{
+    overflow: hidden;
     display: none;
     position: relative;
     z-index: 5315;
@@ -717,278 +720,5 @@ height: 0%;
     }
   }
 }
-  /*
-.nav-link.info {
-  .top-info-on {
-    padding: 10px;
-    width: 100%;
-    @include dfc;
-    justify-content: space-between;
-  }
-  .top-info-off {
-    @include dfc;
-  }
-}
 
-.info-btn {
-  transform: rotateZ(765deg);
-  font-size: 40px;
-  padding: 20px;
-  transition: all 0.2s linear;
-}
-.info-on {
-  height: 100%;
-  background-color: $c-footer-nav;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: all 0.2s linear;
-}
-info-off {
-  height: 0%;
-  transition: all 1s linear;
-}
-
-.main-info-off {
-  display: none;
-}
-.main-info-on {
-  @include dfc;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  gap: 25px;
-  .sec-1 {
-    @include dfj;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-
-    h4 {
-      font-size: 20px;
-    }
-    p {
-      font-size: 16px;
-    }
-  }
-  .sec-2 {
-    @include dfj;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    width: 100%;
-    justify-content: space-around;
-    h4 {
-      width: 100%;
-      padding-bottom: 20px;
-      font-size: 20px;
-    }
-    .cont-giorni,
-    .cont-orari {
-      font-size: 15px;
-      @include dfj;
-      flex-direction: column;
-      gap: 0.3rem;
-      text-align: left;
-      text-transform: uppercase;
-
-      .time {
-        text-align: center;
-      }
-    }
-  }
-}
-.sec-3 {
-  background-color: rgba(0, 0, 0, 0.43);
-  font-size: 14px;
-  padding: 10px;
-}
-.sec-3-off {
-  display: none;
-}
-
-.menu-off {
-  display: none;
-}
-
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  height: 100vh;
-  background-color: $c-nav;
-  width: 30%;
-  text-align: center;
-  .top {
-    @include dfc;
-    justify-content: space-around;
-    width: 100%;
-    padding: 2rem;
-    height: 60%;
-    flex-direction: column;
-    gap: 1rem;
-
-    .nav-link {
-      max-width: 170px;
-      text-transform: uppercase;
-
-      color: $c-nav-link;
-      font-family: "Gabarito", cursive;
-      font-size: clamp(22px, 2vw, 30px)
-    }
-    .active-link {
-      color: $c-white;
-    }
-  }
-  .bottom-footer * {
-    color: $c-f-t;
-  }
-  .bottom-footer {
-    @include dfa;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-top: 7%;
-    text-shadow: 1px 1px 8px black;
-    height: 40%;
-    width: 100%;
-    background-color: $c-footer-nav;
-    h3 {
-      width: 100%;
-      margin-bottom: 10px;
-      font-size: clamp(20px, 3vw, 22px);
-    }
-    .sec-1 {
-      @include dfj;
-      flex-direction: column;
-      gap: 1rem;
-      width: 100%;
-    }
-    .sec-2 {
-      @include dfa;
-      flex-wrap: wrap;
-      gap: 5%;
-      width: 100%;
-      justify-content: space-around;
-      .cont-giorni,
-      .cont-orari {
-        font-size: 11px;
-        @include dfj;
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: left;
-        text-transform: uppercase;
-        font-size: clamp(16px, 1vw, 20px);
-        .time {
-          text-align: center;
-        }
-      }
-    }
-    .sec-3 {
-      background-color: rgba(0, 0, 0, 0.43);
-
-      padding: 10px;
-    }
-  }
-}
-.nav-mb-on {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  background-color: $c-nav;
-  width: 100%;
-  height: 100%;
-  transition: all 0.3s linear;
-}
-.burger-close-on {
-  transition: all 1s linear 2s;
-  position: absolute;
-  top: 8%;
-  right: 8%;
-  opacity: 1;
-  transform: rotateZ(0deg);
-  transition: display 0.3s linear;
-  transition: opacity 1s linear 2s;
-  transition: transform 1s linear 3s;
-  .line {
-    background-color: white;
-    height: 30px;
-    width: 5px;
-    transform: rotateZ(765deg);
-    position: absolute;
-  }
-  .l1 {
-    transform: rotateZ(135deg);
-  }
-}
-.burger-close-off {
-  transform: rotateZ(500deg);
-
-  display: none;
-  opacity: 0;
-  transition: display 0.3s linear;
-  transition: opacity 1s linear 2s;
-  transition: transform 1s linear 3s;
-}
-.top-on {
-  @include dfc;
-  height: 100%;
-  justify-content: space-around;
-  flex-direction: column;
-  padding: 10%;
-  opacity: 1;
-  transition: display 0.3s linear 1s;
-  transition: opacity 5s linear 2s;
-  .nav-link {
-    text-transform: uppercase;
-    line-height: 2rem;
-    color: $c-nav-link;
-    font-family: "Gabarito", cursive;
-    font-size: 1.8rem;
-  }
-}
-
-.bottom-footer-on {
-  display: none;
-}
-.nav-mb-off {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  background-color: $c-nav;
-  width: 100%;
-  height: 0;
-  transition: all 0.2s linear;
-}
-.top-off {
-  display: none;
-  opacity: 0;
-  transition: display 0.3s linear;
-  transition: opacity 1s linear 2s;
-}
-.bottom-footer-off {
-  display: none;
-}
-@media (max-width: $bp1) {
-  .nav {
-    display: none;
-  }
-}
-@media (max-height: 825px) {
-  .nav {
-    .top {
-      gap: 0;
-      height: 50%;
-    }
-    .bottom-footer {
-      height: 50%;
-    }
-    .nav-link {
-      font-size: 1.1rem !important;
-    }
-  }
-}
-*/
 </style>

@@ -212,7 +212,7 @@
   top: 0;
   left: 0;
   flex-wrap: wrap;
-  height: 100vh;
+
   margin-top: 230px;
   
   .menu-cont{

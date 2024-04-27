@@ -52,15 +52,17 @@ body{
     width: 100vw;
     padding: 0 2rem ;
     overflow: auto;
-    height: 100% ;
+    height: calc(100% - 230px);
     margin-top: 230px;
     padding-bottom: 50vh;
-}
+  }
+  
+  
+  @media (max-width:$bp1) {
+    .page{
+      width: 100%;
+      height: calc(100% - 140px);
 
-
-@media (max-width:$bp1) {
-  .page{
-    width: 100%;
   }
   
 }

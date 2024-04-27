@@ -608,7 +608,7 @@ h1 {
 }
 .container_servizio {
   
-  padding: 3rem 0;
+  padding: 3rem 0 30vh 0;
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -735,15 +735,19 @@ h1 {
   .riepilogo {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: .6rem;
   }
 }
 
 .reservation {
   border: 1px solid white;
-  padding: 1.5rem;
+  padding: .5rem;
   border-radius: 15px;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
+  overflow: hidden;
+  span{
+    text-overflow: ellipsis;
+  }
   .reservation_date {
     width: 80%;
     margin: 0 auto;
@@ -751,7 +755,7 @@ h1 {
     @include dfc;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.2rem;
+    gap: .4rem;
     padding: 0.7rem 2.5rem;
     margin-bottom: 1rem;
     border: 1px solid white;
