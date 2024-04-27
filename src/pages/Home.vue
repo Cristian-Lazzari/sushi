@@ -87,7 +87,7 @@
 .bg-home{
     background-color: $c-background;
     width: 100vw;
-    height: calc(100vh - 230px);
+    
     position: fixed;
     left: 0;
     bottom: 0px;
@@ -147,15 +147,13 @@
 
 @media (max-width: 1300px) {
 
-    .bg-home{
-        height: calc(100vh - 150px);
-    }
+    
     .home{
         display: none;
     }
     .home-respo{
         display: block;
-        padding: 7.1rem 3rem;
+        padding: 5rem 3rem;
         .main{
             display: flex;
             flex-direction: column;

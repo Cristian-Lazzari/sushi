@@ -11,7 +11,7 @@
 <template>
 
   <div class="container">
-    <AppNav />
+    <AppNav class="nav" />
     <router-view class="page"></router-view>
   </div>
  
@@ -37,7 +37,9 @@
 body{
   background-color: $c-bg;
 }
-
+.nav{
+  overflow: hidden;
+}
 .container{
   display: flex;
   flex-direction: column;
@@ -50,7 +52,7 @@ body{
     // top: 0;
     // right: 0;
     width: 100vw;
-    padding: 0 2rem ;
+    padding: 0 2rem 30vh;
     overflow: auto;
     height: calc(100% - 230px);
     margin-top: 230px;

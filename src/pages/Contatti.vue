@@ -21,61 +21,61 @@
 <template>
 
 <div class="contatti">
-    <div class="cont">
-      <div class="card1">
-        <div class="card1-left">
-          <img src="../assets/img/sushibac.png" alt="" class="sushi">
-        </div>
-        <div class="card1-right">
-          <h1>CONTATTI</h1>
-          <div class="bottom">
-            <span class="tel">TELEFONO</span>
-            <span>+39 333 232 1234</span>
-            <span class="tel">EMAIL</span>
-            <span>LATUAMAIL@GMAIL.COM</span>
+  <div class="cont">
+    <div class="card1">
+      <div class="card1-left">
+        <img src="../assets/img/sushibac.png" alt="" class="sushi">
+      </div>
+      <div class="card1-right">
+        <h1>CONTATTI</h1>
+        <div class="bottom">
+          <span class="tel">TELEFONO</span>
+          <span>+39 333 232 1234</span>
+          <span class="tel">EMAIL</span>
+          <span>LATUAMAIL@GMAIL.COM</span>
 
-          </div>
         </div>
       </div>
-      <div class="card2">
-        <div class="card2-left">
-          <div class="topinfo" >
-            <h1>Orari d'apertura</h1>
-            <div class="sec-1">
-                <div class="cont-giorni">
-                  <span>lunedì</span>
-                  <span>martedì</span>
-                  <span>giovedì</span>
-                  <span>venerdì</span>
-                  <span>sabato</span>
-                  <span>domenica</span>
-              </div>
-              <div class="cont-orari">
-                <span class="time" >chiusi</span>         
-                <span class="time" >16:00 - 22:00</span>
-                <span class="time" >16:00 - 22:00</span>
-                <span class="time" >16:00 - 22:00</span>
-                <span class="time" >16:00 - 22:00</span>
-                <span class="time" >16:00 - 22:00</span>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <div class="card2-right">
-            <h1>DOVE TROVARCI</h1>
-            <div class="img">
-              <a href="https://www.google.com/maps/place/Kojo+Sushi/@43.5855969,13.308124,17.75z/data=!4m6!3m5!1s0x132d9d63861ba9c3:0x9a352a43c5be1c0e!8m2!3d43.5851992!4d13.3073426!16s%2Fg%2F11kjgq2ccy?hl=it&entry=ttu"><p>tocca qui</p></a>
-              
-              <div class="overlay"></div>
-            </div>
-            <a href="https://www.google.com/maps/place/Kojo+Sushi/@43.5855969,13.308124,17.75z/data=!4m6!3m5!1s0x132d9d63861ba9c3:0x9a352a43c5be1c0e!8m2!3d43.5851992!4d13.3073426!16s%2Fg%2F11kjgq2ccy?hl=it&entry=ttu"></a>
-        </div>
-
-      </div>
-      
     </div>
+    <div class="card2">
+      <div class="card2-left">
+        <div class="topinfo" >
+          <h1>Orari d'apertura</h1>
+          <div class="sec-1">
+              <div class="cont-giorni">
+                <span>lunedì</span>
+                <span>martedì</span>
+                <span>giovedì</span>
+                <span>venerdì</span>
+                <span>sabato</span>
+                <span>domenica</span>
+            </div>
+            <div class="cont-orari">
+              <span class="time" >chiusi</span>         
+              <span class="time" >16:00 - 22:00</span>
+              <span class="time" >16:00 - 22:00</span>
+              <span class="time" >16:00 - 22:00</span>
+              <span class="time" >16:00 - 22:00</span>
+              <span class="time" >16:00 - 22:00</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="card2-right">
+          <h1>DOVE TROVARCI</h1>
+          <div class="img">
+            <a href="https://www.google.com/maps/place/Kojo+Sushi/@43.5855969,13.308124,17.75z/data=!4m6!3m5!1s0x132d9d63861ba9c3:0x9a352a43c5be1c0e!8m2!3d43.5851992!4d13.3073426!16s%2Fg%2F11kjgq2ccy?hl=it&entry=ttu"><p>tocca qui</p></a>
+            
+            <div class="overlay"></div>
+          </div>
+          <a href="https://www.google.com/maps/place/Kojo+Sushi/@43.5855969,13.308124,17.75z/data=!4m6!3m5!1s0x132d9d63861ba9c3:0x9a352a43c5be1c0e!8m2!3d43.5851992!4d13.3073426!16s%2Fg%2F11kjgq2ccy?hl=it&entry=ttu"></a>
+      </div>
+
+    </div>
+    
   </div>
+</div>
 
 
 
@@ -118,18 +118,13 @@ img{
 .contatti{
   overflow: auto;
   background-color: $c-background;
-  position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    margin-top: 230px;
+ 
 
   .cont{
-    margin: auto;
-    margin-top: 230px;
+    margin: 5rem auto;
+    
     max-width: 1100px;
-    height: 100%;
+    
     
 
     .card1{
