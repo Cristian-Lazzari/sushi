@@ -9,7 +9,9 @@ export default {
     };
   },
   methods: {
-    
+    home(){
+      this.$router.replace("/");
+    }
   },
 };
 </script>
@@ -19,7 +21,7 @@ export default {
   <div class="nav">
     
     <div class="left-nav">
-      <img src="../assets/img/logo_kojo.jpg" alt="">
+      <img @click="home" src="../assets/img/logo_kojo.jpg" alt="">
     </div>
     <div class="right-nav">
       <div class="nav1">
@@ -529,7 +531,7 @@ height: 0%;
     z-index: 5315;
     background-color: #523333;
     width: 100%;
-    height: 140px;
+    height:115px;
     animation: slideinm 1 1s ease-in-out;
     @keyframes slideinm {
       from{
@@ -551,9 +553,8 @@ height: 0%;
     
   }
   .btn-menu{
-    position: fixed;
-    right: 50px;
-    top: 50px;
+    position: relative;
+    right: 20px!important;
     z-index: 20;
     flex-direction: column;
     gap: .7rem;
@@ -685,18 +686,21 @@ height: 0%;
 }
 @media (max-width: 1300px) {
   .nav{
-    height: 150px;
+    height: 125px;
     .right-nav{
       display: none;
     }
   }
   .nav-mb{
-    display: block!important;
+    display: flex!important;
+    @include dfc;
+    justify-content: space-between;
   }
 }
 
 @media (max-width: 600px){
   .nav{
+    
     .left-nav{
         padding-left:0px!important;
       
@@ -704,12 +708,6 @@ height: 0%;
   }
 }
 @media (max-width: 450px){
-  .nav-mb{
-   
-    .btn-menu{
-      right: 20px!important;
-    }
-  }
 }
 @media (max-width: 400px){
   

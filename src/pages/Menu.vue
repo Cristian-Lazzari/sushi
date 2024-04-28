@@ -208,20 +208,17 @@
   overflow: hidden;
   display: flex;
   flex-direction:column;
-  position: fixed;
-  top: 0;
-  left: 0;
+  
+  background-color: $c-background;
   flex-wrap: wrap;
-
-  margin-top: 230px;
   
   .menu-cont{
     overflow: auto;
     display: flex;
-    background-color: $c-background;
     width: 100%;
+    
     padding: 1rem 1rem ;
-    padding-bottom: 250px!important;
+    
     overflow-x: hidden;
     .menu-left{
       width: 10%;
@@ -544,11 +541,7 @@
   }
 }
 
-@media (max-width: 1300px){
-  .menu{
-    margin-top:150px!important;
-  }
-}
+
 @media (max-width:1100px) {
   
   .card{

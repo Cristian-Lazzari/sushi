@@ -60,10 +60,10 @@ body{
   }
   
   
-  @media (max-width:$bp1) {
+  @media (max-width: 1300px) {
     .page{
       width: 100%;
-      height: calc(100% - 140px);
+      height: calc(100% - 125px);
 
   }
   

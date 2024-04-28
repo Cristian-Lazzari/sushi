@@ -1155,7 +1155,7 @@ export default {
 
 .prenota {
   overflow: hidden;
-  height: 100vh;
+  
   display: flex;
   flex-direction: column;
   background-color: $c-background;

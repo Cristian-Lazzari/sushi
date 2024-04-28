@@ -71,11 +71,11 @@
 
 
 .bg-chisiamo{
-  height: 100%;
+  
   background-color: $c-background;
   display: flex;
   flex-direction:column;
-  margin:auto;
+  margin: 0 auto;
   width: 100%;
   padding: 50px 3rem ;
       .top-about{
