@@ -292,7 +292,7 @@
         .c-tp{
           background-color: #AB2F2F;
           position: relative;
-          z-index: 10000;
+          z-index: 10;
           display: flex;
           flex-direction: column;
           padding: 1rem 1.5rem;
