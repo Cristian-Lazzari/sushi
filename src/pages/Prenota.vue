@@ -978,7 +978,7 @@ export default {
             <div
               class="add-ingredient"
               :class="selectedItem.expanded ? '' : 'add-off'"
-              v-if="selectedItem.category_slot > 0"
+              v-if="selectedItem.category_slot == 2"
             >
               <img
                 :class="selectedItem.expanded ? 'open' : ''"
