@@ -1,11 +1,18 @@
 <script>
 import { state } from "../state.js";
+import axios from 'axios'
 
 export default {
   data() {
     return {
       state,
-      
+      asporto: false,
+      tavoli: false,
+      ferie : {
+        status : false,
+        from : '',
+        to: ''
+      }
     };
   },
   methods: {
@@ -13,17 +20,30 @@ export default {
       this.$router.replace("/");
     }
   },
+  async created(){
+   let respo = await axios.get(this.state.baseUrl + 'api/setting') 
+   let setting = respo.data.results
+   this.asporto = setting[0].status
+   this.tavoli = setting[1].status
+   this.ferie.status = setting[2].status
+   this.ferie.from = setting[2].from
+   this.ferie.to = setting[2].to
+   
+   
+   
+   console.log(this.setting)  
+  }
 };
 </script>
 
 <template>
   
   <div class="nav">
-    
     <div class="left-nav">
       <img @click="home" src="../assets/img/logo_kojo.jpg" alt="">
     </div>
     <div class="right-nav">
+      <p v-if="ferie.status" class="ferie">Siamo chiusi per ferie dal {{ ferie.from }} al {{ ferie.to }}</p>
       <div class="nav1">
         <img src="../assets/img/punta1.png" alt="">
         <div class="right-nav1"></div>
@@ -33,9 +53,8 @@ export default {
         <div class="menu">
           <router-link :to="{ name: 'home' }" :class="state.actvPage == 1 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(1)" >home</router-link>
           <router-link :to="{ name: 'menu' }" :class="state.actvPage == 2 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(2)" >menu</router-link>
-          <router-link :to="{ name: 'prenota' }" :class="state.actvPage == 5 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(5)" >Ordina d'Asporto</router-link>
-          <a href="tel:+393271622244
-          " class="nav-link"  >Prenota tavolo</a>
+          <router-link :to="{ name: 'prenota' }" v-if="asporto" :class="state.actvPage == 5 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(5)" >Ordina d'Asporto</router-link>
+          <a href="tel:+393271622244" v-if="tavoli" class="nav-link"  >Prenota tavolo</a>
           <!-- <router-link :to="{ name: 'prenotaServizio' }" :class="state.actvPage == 6 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(6)" >Prenota tavolo</router-link> -->
         </div>
 
@@ -68,6 +87,7 @@ export default {
       </div>
     </div>
   </div>
+  <p v-if="ferie.status" class="ferie-mb">Siamo chiusi per ferie dal {{ ferie.from }} al {{ ferie.to }}</p>
   <div :class="state.sideMenuValue ? 'nav-mb-on' : 'nav-mb-off'">
     <div :class="state.sideMenuValue ? 'burger-close-on' : 'burger-close-off'" @click="state.openside">
       <div class="line"  :class="state.infomenu ?   'menu-off': 'active-link' "></div>
@@ -76,11 +96,10 @@ export default {
     <div :class="state.sideMenuValue ? 'top-on' : 'top-off'">
       <router-link :to="{ name: 'home' }" :class="state.infomenu ?   'menu-off': '' " class="nav-link" @click="state.updateActvPage(1)" >home</router-link>
       <router-link :to="{ name: 'menu' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(2)" >menu</router-link>
+      <router-link v-if="asporto" :to="{ name: 'prenota' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(5)" >Ordina d'Asporto</router-link>
+      <a href="tel:+393271622244" v-if="tavoli" :class="state.infomenu ? 'menu-off': '' " class="nav-link"  >Prenota tavolo</a>
       <router-link :to="{ name: 'chi-siamo' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(3)" >chi siamo?</router-link>
       <router-link :to="{ name: 'contatti' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(4)" >contatti</router-link>
-      <router-link :to="{ name: 'prenota' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(5)" >Ordina d'Asporto</router-link>
-      <a href="tel:+393271622244
-          " :class="state.infomenu ? 'menu-off': '' " class="nav-link"  >Prenota tavolo</a>
       <div class="nav-link info"  :class="state.infomenu ? 'info-on' : 'info-off'">
         <div :class="state.infomenu ? 'top-info-on' : 'top-info-off'" >
           <h4 @click="state.infoside">info</h4>
@@ -99,25 +118,31 @@ export default {
             <div class="cont-giorni">
                 <span>lunedì</span>
                 <span>martedì</span>
+                <span>mercoledì</span>
                 <span>giovedì</span>
                 <span>venerdì</span>
                 <span>sabato</span>
                 <span>domenica</span>
             </div>
             <div class="cont-orari">
-              <span class="time" >chiusi</span>         
-              <span class="time" >16:00 - 22:00</span>
-              <span class="time" >16:00 - 22:00</span>
-              <span class="time" >16:00 - 22:00</span>
-              <span class="time" >16:00 - 22:00</span>
-              <span class="time" >16:00 - 22:00</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >chiusi</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >12-15 - 19-23</span>
             </div>
           </div>
 
         </div>
 
         <div :class="state.infomenu ? 'sec-3' : 'sec-3-off'" >
-          Kojo sushi, PI: 1231231231231, privacy policy, product by FUTURE+
+          Kojo sushi, PI: 02913470429, 
+          <a href="https://www.iubenda.com/privacy-policy/89654778/cookie-policy" class="link" title="Cookie Policy ">Cookie Policy, </a>
+          <a href="https://www.iubenda.com/privacy-policy/89654778" class="link" title="Privacy Policy "> Privacy Policy</a>
+          , product by 
+          <a href="https://future-plus.it">FUTURE +</a>
         </div>
 
       </div>
@@ -137,7 +162,10 @@ export default {
   @use "../assets/styles/general.scss" as *;
   
 
-
+.link{
+  text-decoration: none;
+  color: white;
+}
 .nav-link.info{
   .top-info-on{
     padding: 10px;
@@ -149,6 +177,16 @@ export default {
     @include dfc;
     
   }
+}
+.ferie{
+  margin-right: 10px;
+}
+.ferie, .ferie-mb{
+  color: red;
+}
+.ferie-mb{
+  margin-left: 10px;
+  display: none;
 }
 
 .info-btn{
@@ -690,6 +728,12 @@ height: 0%;
     .right-nav{
       display: none;
     }
+  }
+  .ferie-mb{
+    display: block;
+  }
+  .ferie{
+    display: none;
   }
   .nav-mb{
     display: flex!important;

@@ -12,7 +12,7 @@ export const state = reactive({
   setting: [],
   nPezzi: [0, 0],
   actvPage: 1,
-  baseUrl: 'https://db.dashboardristorante.it/',
+  baseUrl: 'https://db.kojo-sushi.it/',
   //baseUrl: "http://127.0.0.1:8000/",
   getImageUrl(image) {
     return this.baseUrl + "public/storage/" + image;

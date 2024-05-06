@@ -808,7 +808,7 @@ export default {
           <span>CATEGORIE</span>
         </div>
         <div class="categorie" :class="categoryinput ? 'cat-off': ''">
-        <div v-for="(cat, i) in arrCategory" class="category" :class="categoryId == cat.id ? 'category-on' : '', i == 0 ? 'category0' : '',i == 1 ? 'category1' : '', i == 2 ? 'category2' : '',i == 3 ? 'category3' : '',i == 4 ? 'category4' : '',i == 5 ? 'category5' : '',i == 6 ? 'category6' : '',i == 7 ? 'category7' : '',i == 8 ? 'category8' : '' ,i == 9 ? 'category9' : '',i == 10 ? 'category10' : '',i == 11 ? 'category11' : '',i == 12 ? 'category12' : '',i == 13 ? 'category13' : '',i == 14 ? 'category14' : '',i == 15 ? 'category15' : '',i == 16 ? 'category16' : '',i == 17 ? 'category17' : '',i == 18 ? 'category18' : '',i == 19 ? 'category19' : '',i == 20 ? 'category20' : '',i == 21 ? 'category21' : '',i == 22 ? 'category22' : '',i == 23 ? 'category23' : '',i == 24 ? 'category24' : '',i == 25 ? 'category25' : '',i == 26 ? 'category26' : '',i == 27 ? 'category27' : '',i == 28 ? 'category28' : '',i == 29 ? 'category29' : ''" @click="changeCategory(cat.id, cat.name)" :key="i"> 
+        <div v-for="(cat, i) in arrCategory" class="category" :class="categoryId == i ? 'category-on' : '', i == 0 ? 'category0' : '',i == 1 ? 'category1' : '', i == 2 ? 'category2' : '',i == 3 ? 'category3' : '',i == 4 ? 'category4' : '',i == 5 ? 'category5' : '',i == 6 ? 'category6' : '',i == 7 ? 'category7' : '',i == 8 ? 'category8' : '' ,i == 9 ? 'category9' : '',i == 10 ? 'category10' : '',i == 11 ? 'category11' : '',i == 12 ? 'category12' : '',i == 13 ? 'category13' : '',i == 14 ? 'category14' : '',i == 15 ? 'category15' : '',i == 16 ? 'category16' : '',i == 17 ? 'category17' : '',i == 18 ? 'category18' : '',i == 19 ? 'category19' : '',i == 20 ? 'category20' : '',i == 21 ? 'category21' : '',i == 22 ? 'category22' : '',i == 23 ? 'category23' : '',i == 24 ? 'category24' : '',i == 25 ? 'category25' : '',i == 26 ? 'category26' : '',i == 27 ? 'category27' : '',i == 28 ? 'category28' : '',i == 29 ? 'category29' : ''" @click="changeCategory(cat.id, cat.name)" :key="i"> 
               <span @click="catopen" :class="actvcat == cat.id ? 'span-on' : '' ">{{ cat.name }}</span> 
             </div>
         </div>
@@ -898,16 +898,8 @@ export default {
       </div>
 
       <div class="main-prenota">
-        <div
-          class="card-default"
-          @click="
-            openShow(item.name, item.id, item.tags, item.price, item.image, item.category_id)
-          "
-          v-for="item in arrProduct"
-          :key="item.id"
-        >
-          <!--<img :src="state.getImageUrl(item.image)" alt="" />-->
-          <img src="../assets/img/imgsushi.png" alt="">
+        <div class="card-default" @click="openShow(item.name, item.id, item.tags, item.price, item.image, item.category.slot)" v-for="item in arrProduct" :key="item.id">
+          <img :src="state.getImageUrl(item.image)" alt="" />
 
           <div class="c-tp">
             <div class="title">{{ item.name }}</div>
@@ -1208,11 +1200,10 @@ export default {
       @include dfc;
       margin: 5rem 0;
       flex-wrap: wrap;
-      gap: 0rem;
+      gap: 2.5rem;
 
       .card-default {
         width: calc((75% - 2rem) / 3);
-        margin-bottom: 60px;
         @include dfc;
         align-items: stretch;
         border-radius: 10px;
@@ -1221,16 +1212,16 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin: 50px 1rem;
-        margin-bottom: 130px;
-
         img {
-          position: absolute;
-          top: -120px;
-          left: 0;
-          right: 0;
+          position: relative;
+          bottom: -20px;
+          //top: -90%;
+          //left: 20px;
+          
           margin: auto;
           width: 250px;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
         }
         .title {
           font-size: 20px;
@@ -1323,7 +1314,7 @@ export default {
             text-shadow: 0 10px 20px black;
           }
           img {
-            width: 30%;
+            width: clamp(50px, 30%, 500px);
             margin-bottom: -50px;
             z-index: 40;
             aspect-ratio: 1;
@@ -1533,7 +1524,7 @@ export default {
    cursor:grab;
    border-radius: 2px;
    transition: all .5s;
-   background-color: #D53C3C75 ;
+   
    display: flex;
    justify-content: center;
    align-items: center;
@@ -1859,7 +1850,6 @@ export default {
 @media (max-width: $bp2) {
   .card-default {
     width: 100% !important;
-    margin: 5rem 0!important;
   }
 }
 </style>

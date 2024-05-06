@@ -30,9 +30,9 @@
         <h1>CONTATTI</h1>
         <div class="bottom">
           <span class="tel">TELEFONO</span>
-          <span>+39 333 232 1234</span>
+          <span>+39 345 118 7723</span>
           <span class="tel">EMAIL</span>
-          <span>LATUAMAIL@GMAIL.COM</span>
+          <span>amministrazioneristorantesushi@gmail.com</span>
 
         </div>
       </div>
@@ -45,18 +45,20 @@
               <div class="cont-giorni">
                 <span>lunedì</span>
                 <span>martedì</span>
+                <span>mercoledì</span>
                 <span>giovedì</span>
                 <span>venerdì</span>
                 <span>sabato</span>
                 <span>domenica</span>
             </div>
             <div class="cont-orari">
+              <span class="time" >12-15 - 19-23</span>
               <span class="time" >chiusi</span>         
-              <span class="time" >16:00 - 22:00</span>
-              <span class="time" >16:00 - 22:00</span>
-              <span class="time" >16:00 - 22:00</span>
-              <span class="time" >16:00 - 22:00</span>
-              <span class="time" >16:00 - 22:00</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >12-15 - 19-23</span>
+              <span class="time" >12-15 - 19-23</span>
             </div>
           </div>
           
@@ -71,9 +73,13 @@
           </div>
           <a href="https://www.google.com/maps/place/Kojo+Sushi/@43.5855969,13.308124,17.75z/data=!4m6!3m5!1s0x132d9d63861ba9c3:0x9a352a43c5be1c0e!8m2!3d43.5851992!4d13.3073426!16s%2Fg%2F11kjgq2ccy?hl=it&entry=ttu"></a>
       </div>
-
+      
     </div>
-    
+    <p> Kojo sushi, PI: 02913470429, 
+          <a href="https://www.iubenda.com/privacy-policy/89654778/cookie-policy" class="link" title="Cookie Policy ">Cookie Policy, </a>
+          <a href="https://www.iubenda.com/privacy-policy/89654778" class="link" title="Privacy Policy ">Privacy Policy</a>
+          , product by 
+          <a href="https://future-plus.it">FUTURE +</a></p>
   </div>
 </div>
 

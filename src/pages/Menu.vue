@@ -129,7 +129,8 @@
         <div class="menu-bottom">
 
           <div class="card " v-for="item in arrProduct">
-            <img  class="shadow" src="../assets/img/imgsushi.png" alt="">         <!--state.getImageUrl(item.image)-->
+          
+            <img class="shadow" :src="state.getImageUrl(item.image)" alt="" />    <!--state.getImageUrl(item.image)-->
             <div class="c-tp shadow">
               <div class="title">{{ item.name }}</div>
               <div class="tags"> <span>{{fixtag(item.tags) }}</span></div>
@@ -256,7 +257,7 @@
       .menu-bottom{
       @include dfc;
       flex-wrap: wrap;
-      gap: 0rem;
+      gap: 2rem;
       align-items: stretch;
       padding-bottom: 300px;
       .card{
@@ -267,15 +268,13 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin: 15rem 1rem;
-        margin-bottom:0 ;
+        
         
         
         img{
-          position: absolute;
-          top: -130px;
-          left: 0;
-          right: 0;
+          position: relative;
+          border-radius: 20px;
+          bottom: -25px;
           margin: auto;
           width: 250px;
           
@@ -580,7 +579,7 @@
     }
     
     .card{
-    margin-top: 200px!important;
+   
     width: 55% !important;
   }
   .menu-left{
