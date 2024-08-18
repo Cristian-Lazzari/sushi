@@ -54,7 +54,7 @@ export default {
           <router-link :to="{ name: 'home' }" :class="state.actvPage == 1 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(1)" >home</router-link>
           <router-link :to="{ name: 'menu' }" :class="state.actvPage == 2 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(2)" >menu</router-link>
           <router-link :to="{ name: 'prenota' }" v-if="asporto" :class="state.actvPage == 5 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(5)" >Ordina d'Asporto</router-link>
-          <a href="tel:+393271622244" v-if="tavoli" class="nav-link"  >Prenota tavolo</a>
+          <a href="tel:+393451187723" v-if="tavoli" class="nav-link"  >Prenota tavolo</a>
           <!-- <router-link :to="{ name: 'prenotaServizio' }" :class="state.actvPage == 6 ? 'active-link' : '' " class="nav-link" @click="state.updateActvPage(6)" >Prenota tavolo</router-link> -->
         </div>
 
@@ -97,7 +97,7 @@ export default {
       <router-link :to="{ name: 'home' }" :class="state.infomenu ?   'menu-off': '' " class="nav-link" @click="state.updateActvPage(1)" >home</router-link>
       <router-link :to="{ name: 'menu' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(2)" >menu</router-link>
       <router-link v-if="asporto" :to="{ name: 'prenota' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(5)" >Ordina d'Asporto</router-link>
-      <a href="tel:+393271622244" v-if="tavoli" :class="state.infomenu ? 'menu-off': '' " class="nav-link"  >Prenota tavolo</a>
+      <a href="tel:+393451187723" v-if="tavoli" :class="state.infomenu ? 'menu-off': '' " class="nav-link"  >Prenota tavolo</a>
       <router-link :to="{ name: 'chi-siamo' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(3)" >chi siamo?</router-link>
       <router-link :to="{ name: 'contatti' }" :class="state.infomenu ? 'menu-off': '' " class="nav-link" @click="state.updateActvPage(4)" >contatti</router-link>
       <div class="nav-link info"  :class="state.infomenu ? 'info-on' : 'info-off'">

@@ -36,11 +36,11 @@ const router = createRouter({
       name: "prenota",
       component: Prenota,
     },
-    // {
-    //   path: "/prenotaServizio",
-    //   name: "prenotaServizio",
-    //   component: PrenotaServizio,
-    // },
+    {
+      path: "/prenotaServizio",
+      name: "prenotaServizio",
+      component: PrenotaServizio,
+    },
     {
       path: "/conferma",
       name: "conferma",
